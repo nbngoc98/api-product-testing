@@ -66,7 +66,7 @@ class ProductController extends Controller
             
             return response()->json([
                 'message' => 'Trường dữ liệu bị thiếu'
-            ], 401);
+            ], 400);
         } else{
             $product->update($request->all());
             return response()->json([

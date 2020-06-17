@@ -24,15 +24,24 @@ class AuthController extends Controller
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|confirmed'
         ]);
-        $user = new User([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
-        ]);
-        $user->save();
-        return response()->json([
-            'message' => 'Tạo user thành công!'
-        ], 201);
+        // $userDB = User::all();
+        
+        // if ($userDB->email = $request->email) {
+        //     return response()->json([
+        //         'message' => 'Email đã tồn tại'
+        //     ], 400);
+        // } else{
+            $user = new User([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password)
+            ]);
+            $user->save();
+            return response()->json([
+                'message' => 'Tạo user thành công!'
+            ], 201);
+        // }
+        
     }
   
     /**
