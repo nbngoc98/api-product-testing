@@ -30,9 +30,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $product = Product::create($request->all());
-
-        return new ProductResource($product);
+        if ($request->title == ''| $request->title == ''| $request->price == '' && $request->price == '' ) {
+            
+            return response()->json([
+                'message' => 'Thêm trường dữ liệu bị thiếu'
+            ], 400);
+        } else{
+            $product = Product::create($request->all());
+            return new ProductResource($product);
+        }
+        
     }
 
     /**
@@ -54,8 +61,18 @@ class ProductController extends Controller
      * @return bool
      */
     public function update(Request $request, Product $product)
-    {
-        return $product->update($request->all());
+    {   
+        if ($request->title == ''| $request->title == ''| $request->price == '' && $request->price == '' ) {
+            
+            return response()->json([
+                'message' => 'Trường dữ liệu bị thiếu'
+            ], 401);
+        } else{
+            $product->update($request->all());
+            return response()->json([
+                'message' => 'Cập nhật thành công'
+            ], 200);
+        }
     }
 
     /**
@@ -67,5 +84,8 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
+        return response()->json([
+            'message' => 'Xóa thành công'
+        ], 200);
     }
 }

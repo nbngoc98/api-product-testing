@@ -31,18 +31,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::group([
-//     'middleware' => 'auth:api'
-//   ], function() {
     Route::middleware('auth:api')->get('products', 'Api\ProductController@index')->name('products.index');
 
-    Route::get('products/{product}', 'Api\ProductController@show')->name('products.show');
+    Route::middleware('auth:api')->get('products/{product}', 'Api\ProductController@show')->name('products.show');
     // Thêm sản phẩm mới
-    Route::post('products', 'Api\ProductController@store')->name('products.store');
+    Route::middleware('auth:api')->post('products', 'Api\ProductController@store')->name('products.store');
 
-    Route::put('products/{product}', 'Api\ProductController@update')->name('products.update');
+    Route::middleware('auth:api')->post('products/{product}', 'Api\ProductController@update')->name('products.update');
+    Route::middleware('auth:api')->put('products/{product}', 'Api\ProductController@update')->name('products.update');
+    Route::middleware('auth:api')->patch('products/{product}', 'Api\ProductController@update')->name('products.update');
 
-    Route::patch('products/{product}', 'Api\ProductController@update')->name('products.update');
-
-    Route::delete('products/{product}', 'Api\ProductController@destroy')->name('products.destroy');
-// });
+    Route::middleware('auth:api')->delete('products/{product}', 'Api\ProductController@destroy')->name('products.destroy');

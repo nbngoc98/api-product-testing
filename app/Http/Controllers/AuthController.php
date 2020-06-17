@@ -31,7 +31,7 @@ class AuthController extends Controller
         ]);
         $user->save();
         return response()->json([
-            'message' => 'Successfully created user!'
+            'message' => 'Tạo user thành công!'
         ], 201);
     }
   
@@ -55,7 +55,7 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
         if(!Auth::attempt($credentials))
             return response()->json([
-                'message' => 'Unauthorized'
+                'message' => 'Email hoặc password sai!!!'
             ], 401);
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
